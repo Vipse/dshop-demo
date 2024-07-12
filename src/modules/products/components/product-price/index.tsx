@@ -40,7 +40,7 @@ export default function ProductPrice({
               {selectedPrice.original_price}
             </span>
           </p>
-          <p className="text-gray-400 text-base mt-2">Don't pay (?)</p>
+          <p className="text-gray-400 text-base mt-2">Don&apos;t pay (?)</p>
           <div className="flex my-4 items-center">
             <div
               className="
