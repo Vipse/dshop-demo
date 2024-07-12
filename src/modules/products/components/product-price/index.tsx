@@ -2,7 +2,6 @@ import {
   PricedProduct,
   PricedVariant,
 } from "@medusajs/medusa/dist/types/pricing"
-import { clx } from "@medusajs/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
 import { RegionInfo } from "types/global"
@@ -30,34 +29,52 @@ export default function ProductPrice({
 
   return (
     <div className="flex flex-col text-ui-fg-base">
-      <span
-        className={clx("text-xl-semi", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
-        })}
-      >
-        {!variant && "From "}
-        <span
-          data-testid="product-price"
-          data-value={selectedPrice.calculated_price_number}
-        >
-          {selectedPrice.calculated_price}
-        </span>
-      </span>
       {selectedPrice.price_type === "sale" && (
         <>
-          <p>
-            <span className="text-ui-fg-subtle">Original: </span>
+          <p className="line-through text-gray-400 text-sm">
+            <span>Was </span>
             <span
-              className="line-through"
               data-testid="original-product-price"
               data-value={selectedPrice.original_price_number}
             >
               {selectedPrice.original_price}
             </span>
           </p>
-          <span className="text-ui-fg-interactive">
-            -{selectedPrice.percentage_diff}%
-          </span>
+          <p className="text-gray-400 text-base mt-2">Don't pay (?)</p>
+          <div className="flex my-4 items-center">
+            <div
+              className="
+               bg-red-700
+                h-10
+                mr-8
+                pl-4
+                pr-2
+                leading-10
+                inline-block
+                text-2xl
+                relative
+                after:content-['']
+                text-white
+                font-bold
+                after:border-l-[20px]
+                after:border-t-[20px]
+                after:border-b-[20px]
+                after:border-l-red-700
+                after:border-t-transparent
+                after:border-b-transparent
+                after:inline-block
+                after:absolute
+                after:-right-5
+                after:top-0
+              "
+            >
+              {selectedPrice.calculated_price}
+            </div>
+            <div className="flex flex-col items-center font-bold">
+              <span>SAVE</span>
+              <span>{selectedPrice.percentage_diff}%</span>
+            </div>
+          </div>
         </>
       )}
     </div>
